@@ -57,16 +57,14 @@ const styles = StyleSheet.create({
      fontSize: '25px',
      fontWeight: '700',
      lineHeight: '29px',
-     fontFamily : 'Time New Roman',
 
   },
   text:{
     alignSelf:'center',
     marginTop: '30px',
-    fontFamily: 'Time New Roman',
     textAlign: 'center',
     fontSize: '15px',
-    fontWeight: '1000',
+    fontWeight: '700',
     lineHeight: '17.5px',
     width: '300px',
     height: '40px',
