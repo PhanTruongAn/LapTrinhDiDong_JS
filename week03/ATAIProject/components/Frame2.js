@@ -88,10 +88,6 @@ const styles = StyleSheet.create({
       width: '330px',
       height: '60px',
     },
-    button_left:{
-       color: '#E3C000',
-       width: '150px',
-    },
     button_div: {
       flexDirection: 'row',
       alignItems: 'center',
