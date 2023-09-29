@@ -7,7 +7,7 @@ import { Button } from 'react-native-web';
 export default function Frame4(){
     return(
         <View style={styles.container}>
-           <Text style={{marginTop:'350px',fontSize:'60px', fontWeight:'700',lineHeight:'70.31px', alignSelf:'center'}}>CODE</Text>
+           <Text style={{marginTop:'120px',fontSize:'60px', fontWeight:'700',lineHeight:'70.31px', alignSelf:'center'}}>CODE</Text>
            <Text style={{fontSize:'20px', fontWeight:'700', lineHeight:'23.44px',alignSelf:'center',marginTop:'70px'}}>
             VERIFICATION
            </Text>

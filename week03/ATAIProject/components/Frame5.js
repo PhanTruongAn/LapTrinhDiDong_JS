@@ -29,7 +29,7 @@ export default function Frame5(){
                   <Text style={{top:'15px',left:'10px',fontSize:'18px',fontWeight:'600',lineHeight:'21.1px'}}>
                     Password
                   </Text>
-                  <Icon name='eye' size={35} style={{left:'275px', top:'-10px'}}>
+                  <Icon name='eye' size={35} style={{left:'275px', top:'-13px'}}>
                   </Icon>
                 </View> 
                 <View style={styles.text_input}>
