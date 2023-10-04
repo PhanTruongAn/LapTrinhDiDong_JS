@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Button,TextInput} from 'react-native';
 import * as React from 'react';
 import {LinearGradient} from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
-// import { Button } from 'react-native-web';
 export default function Frame1(){
     return(
         <View style={styles.container}>
@@ -13,37 +12,37 @@ export default function Frame1(){
                 end={[0,0.5]}
                 style={{height:'100%'}}
                 >
-                <Text style={{top:'70px',left:'30px',fontWeight:'700', fontSize:'30px', lineHeight:'29.3px'}}>
+                <Text style={{top:'70px',left:'0px',fontWeight:'700', fontSize:'30px', lineHeight:'29.3px'}}>
                      LOGIN
                 </Text>
-               <View style={styles.text_input}>
+               <View style={styles.name_input}>
                   <Icon
                   name='user' size={37}
-                  style={{alignSelf:"center"}}
+                  style={{alignSelf:"center",left:"-30px"}}
                   ></Icon>
-                </View> 
-                <TextInput  placeholder='Name' style={{ borderLeft:"none" ,borderWidth:"1px" ,borderColor:'#e8d897',marginTop:"70px",marginLeft:"75px",fontSize:"20px",width:"290px",backgroundColor:"#d8b93b",height:"55px"}}>
+                  <View style={{left:"-10px",alignSelf:"center",backgroundColor:"white", width:"250px",height:"45px"}}>
+                    <TextInput placeholder='Name' style={{fontSize:"20px",fontWeight:"500",backgroundColor:"#d8b93b",height:"45px"}}>
 
-                 </TextInput>
-                <View style={{
-                   
-                  //  alignItems:'center',
-                   top: '125px',
-                   width:'60px',
-                   height:'55px',
-                   backgroundColor: '#d8b93b',
-                   left:"15px",
-                   borderRight:"none",
-                   borderWidth:'1px',
-                   borderColor:'#e8d897',
-                   marginTop:"-90px",
-                   }}>
-                  <Icon
-                  name='lock' size={37}
-                  style={{alignSelf:"center",justifyContent:"center"}}
-                  ></Icon>
-                  <Icon name='eye' size={35} style={{left:'290px', top:'-52px'}}></Icon>
+                    </TextInput>
+                  </View>
                 </View> 
+                
+                <View style={styles.pass_input}>
+                   <Icon
+                     name='lock' size={37}
+                     style={{alignSelf:"center",left:"-10px"}}
+                  ></Icon>
+                  <View style={{left:"7px",alignSelf:"center",backgroundColor:"white", width:"250px",height:"45px"}}>
+                    <TextInput placeholder='Password' style={{fontSize:"20px",fontWeight:"500",backgroundColor:"#d8b93b",height:"45px"}}>
+                    </TextInput>
+                  </View>
+                  <Icon
+                     name='eye' size={37}
+                     style={{alignSelf:"center",left:"15px"}}
+                  ></Icon>
+                </View>
+               
+           
                 <View style={{width:"360px",height:"45px",alignSelf:"center",backgroundColor:"black",top:"190px",}}>
                    <button
                    style={{width:"360px",height:"45px",alignItems:"center",backgroundColor:"black",color:"white",fontSize:"20px",fontWeight:"700"}}
@@ -51,7 +50,7 @@ export default function Frame1(){
                 </View>
               
             <Text style={{fontWeight:'700', fontSize:'20px',textAlign:'center', top:'230px'}}>
-               CREATE ACCOUNT
+               Forgot your password?
             </Text>
             
                 </LinearGradient>
@@ -65,17 +64,31 @@ const styles = StyleSheet.create({
         flex: 1,
      
     },
-    text_input:{
+    name_input:{
+        flexDirection: "row",
         justifyContent:"center",
-        top: '125px',
-        width:'60px',
+        top: '140px',
+        width:'360px',
         height:'55px',
         backgroundColor: '#d8b93b',
         left:"15px",
         borderWidth:'1px',
         borderColor:'#e8d897',
         marginTop: '18px',
-        borderRight:"none"
+       
+    },
+
+    pass_input:{
+        flexDirection: "row",
+        justifyContent:"center",
+        top: '140px',
+        width:'360px',
+        height:'55px',
+        backgroundColor: '#d8b93b',
+        left:"15px",
+        borderWidth:'1px',
+        borderColor:'#e8d897',
+        marginTop: '18px',
     },
 
 });
