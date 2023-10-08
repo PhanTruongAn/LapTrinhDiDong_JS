@@ -5,9 +5,9 @@ import Frame2 from "./components/Frame2";
 import Frame3 from './components/Frame3';
 export default function App() {
   return (
-    // <Frame1/>
+    <Frame1/>
     // <Frame2/>
-    <Frame3/>
+    // <Frame3/>
   );
 }
 

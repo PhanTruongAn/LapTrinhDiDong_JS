@@ -4,6 +4,16 @@ import * as React from 'react';
 import {LinearGradient} from 'expo-linear-gradient';
 import Icon from 'react-native-vector-icons/FontAwesome';
 export default function Frame1(){
+     
+    const [account, setAccount] = React.useState({user:"phanan1234@gmail.com",password:"123"});
+
+    const Login = () =>{
+      if(account.user === 'phanan1234@gmail.com' && account.password === '123'){
+        alert('Login success!')
+    }else{
+        alert('login fail!')
+      }
+    }
     return(
         <View style={styles.container}>
                 <LinearGradient
@@ -21,8 +31,8 @@ export default function Frame1(){
                   style={{alignSelf:"center",left:"-30px"}}
                   ></Icon>
                   <View style={{left:"-10px",alignSelf:"center",backgroundColor:"white", width:"250px",height:"45px"}}>
-                    <TextInput placeholder='Name' style={{fontSize:"20px",fontWeight:"500",backgroundColor:"#d8b93b",height:"45px"}}>
-
+                    <TextInput value={account.user} placeholder='Name' style={{fontSize:"20px",fontWeight:"500",backgroundColor:"#d8b93b",height:"45px"}}>
+                       
                     </TextInput>
                   </View>
                 </View> 
@@ -33,7 +43,9 @@ export default function Frame1(){
                      style={{alignSelf:"center",left:"-10px"}}
                   ></Icon>
                   <View style={{left:"7px",alignSelf:"center",backgroundColor:"white", width:"250px",height:"45px"}}>
-                    <TextInput placeholder='Password' style={{fontSize:"20px",fontWeight:"500",backgroundColor:"#d8b93b",height:"45px"}}>
+                    <TextInput value={account.password} placeholder='Password' style={{fontSize:"20px",fontWeight:"500",backgroundColor:"#d8b93b",height:"45px"}}>
+                    
+                    
                     </TextInput>
                   </View>
                   <Icon
@@ -44,7 +56,7 @@ export default function Frame1(){
                
            
                 <View style={{width:"360px",height:"45px",alignSelf:"center",backgroundColor:"black",top:"190px",}}>
-                   <button
+                   <button onClick={Login}
                    style={{width:"360px",height:"45px",alignItems:"center",backgroundColor:"black",color:"white",fontSize:"20px",fontWeight:"700"}}
                   >LOGIN</button>
                 </View>
