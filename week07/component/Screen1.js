@@ -11,7 +11,7 @@ import { useEffect,useState } from "react";
 export default function Screen1({navigation}) {
   var [data,setData] = useState([]);
   const [userName,setUserName] = useState('');
-  const [login,setLogin] = useState();
+ 
   useEffect(() => {
     fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users`)
       .then((response) => response.json())
@@ -24,11 +24,13 @@ export default function Screen1({navigation}) {
     const user = data.find(
       (user) => user.name === userName);
       if(user){
+        console.log(user)
             navigation.navigate("Screen2",{userLogin:user});
       }else{
         alert("Your name is not exist!")
       }
   }
+  
   return (
     <View style={styles.container}>
       <Image
@@ -53,11 +55,11 @@ export default function Screen1({navigation}) {
       <View style={styles.viewEmail}>
         <Image
           source={require("./image/IconEmail.PNG")}
-          style={{ width: 20, height: 20, marginLeft: -100 }}
+          style={{ width: 20, height: 20,left:10 }}
         ></Image>
         <TextInput
           placeholder="Enter Your Name"
-          style={{ marginLeft: 10 }}
+          style={{marginLeft:30,width:250,height:43,fontSize:18,fontWeight:400,color:'gray' }}
           onChangeText={(text) =>setUserName(text)}
         ></TextInput>
       </View>

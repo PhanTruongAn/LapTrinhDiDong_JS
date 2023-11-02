@@ -3,13 +3,17 @@ import { StyleSheet, Text, View, Image, TextInput, Pressable ,FlatList} from 're
 import { useEffect,useState } from "react";
 import { useRoute } from "@react-navigation/native";
 
-export default function Screen2(navigation) {
+export default function Screen2({navigation}) {
+  var route = useRoute();
   var [data,setData] = useState([]);
   useEffect(() => {
       setData(route.params.userLogin);
 },[]);
-  const route = useRoute();
-  console.log(data);
+ var handleInsertJob = () =>{
+      if(data !== null){
+        navigation.navigate("Screen3",{insertJob:data})
+      }
+ }
     return ( 
         <View style = { styles.container } >
         <View style={styles.viewAvatar}>
@@ -20,12 +24,12 @@ export default function Screen2(navigation) {
         
         <View style={styles.viewTextAvatar}>
         <Text style={{width:101,height:30,marginLeft:10,fontFamily:"Epilogue",fontSize:14,fontWeight:700,marginTop:20}}>Hi {data.name}</Text>
-        <Text>Have a great day a head</Text>
+        <Text style={{fontWeight:500,top:-12,left:10}}>Have a great day a head</Text>
         </View>
         </View>
         <View style={styles.viewSearch}>
-        <Image source={require("./image/IconSearch.PNG")} style={{width:20,height:20,marginLeft:-100}}></Image>
-        <TextInput defaultValue='Search'></TextInput>
+        <Image source={require("./image/IconSearch.PNG")} style={{width:20,height:20,left:10}}></Image>
+        <TextInput style={{marginLeft:30,width:250,height:43,fontSize:18,fontWeight:400,color:'gray' }} placeholder='Search'></TextInput>
         </View>
 
         <View
@@ -34,6 +38,7 @@ export default function Screen2(navigation) {
           height: 400,
           alignItems: "center",
           justifyContent: "center",
+          marginTop:10
         }}
       >
           <FlatList
@@ -53,8 +58,10 @@ export default function Screen2(navigation) {
       )}
       />
       </View>
-        <Pressable style={styles.btn}>
-           <Text style={{alignSelf:"center"}}>+</Text>
+        <Pressable 
+        onPress={handleInsertJob}
+        style={styles.btn}>
+           <Text style={{alignSelf:"center",fontSize:30,color:"white",justifyContent:'center',fontWeight:600,top:-3}}>+</Text>
         </Pressable>
         </View>
     );
@@ -77,6 +84,7 @@ const styles = StyleSheet.create({
       color: "white",
       fontSize: 30,
       fontWeight: 600,
+      alignItems:'center'
     },
     viewAvatar:{
         flexDirection:'row',

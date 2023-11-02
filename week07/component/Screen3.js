@@ -7,13 +7,41 @@ import {
   TextInput,
   Pressable,
 } from "react-native";
+import { useEffect,useState } from "react";
+import { useRoute } from "@react-navigation/native";
+export default function Screen3({navigation}) {
+  var [data,setData] = useState([]);
+  const [job,setJob] = useState('');
+  useEffect(() => {
+    setData(route.params.insertJob);
+},[]);
+var route = useRoute();
+var handleInsertJob = () => {
+  if (job !== "") {
+    data.jobs.push(job);
+    fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users/${data.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((updatedUser) => {
+        setData(updatedUser);
+      });
+    navigation.navigate("Screen2");
+  } else {
+    alert("Please input 1 job!");
+  }
+};
 
-export default function Screen3() {
+console.log(data)
   return (
     <View style={styles.container}>
       <View style={styles.viewAvatar}>
         <Image
-          source={require("./image/Avatar.PNG")}
+          source={{uri:data.avatar}}
           style={{ height: 50, width: 50 }}
         ></Image>
         <View style={styles.viewTextAvatar}>
@@ -28,9 +56,9 @@ export default function Screen3() {
               marginTop: 20,
             }}
           >
-            Hi Twinkle
+            Hi {data.name}
           </Text>
-          <Text>Have agrate day a head</Text>
+          <Text style={{fontWeight:500,top:-12,left:10}}>Have a great day a head</Text>
         </View>
       </View>
       <Text
@@ -49,14 +77,20 @@ export default function Screen3() {
       <View style={styles.viewInputJob}>
         <Image
           source={require("./image/IconInPutJob.png")}
-          style={{ width: 20, height: 20, marginLeft: -100 }}
+          style={{ width: 20, height: 20,left:10 }}
         ></Image>
         <TextInput
-          defaultValue="input your job"
-          style={{ marginLeft: 10 }}
+        onChangeText={(text) =>setJob(text)}
+          placeholder="Input your job"
+          style={{marginLeft:30,width:250,height:43,fontSize:18,fontWeight:400,color:'gray'}}
         ></TextInput>
       </View>
-      <Pressable style={styles.btn}>Finish -{">"}</Pressable>
+      <Pressable 
+      onPress={handleInsertJob}
+      style={styles.btn}>
+        
+       <Text style={{fontSize:25,fontWeight:600,alignSelf:'center',color:'white'}}>Finish</Text>
+      </Pressable>
       <Image
         source={require("./image/noteandpen.PNG")}
         style={{ width: 190, height: 170, marginTop: 50 }}
