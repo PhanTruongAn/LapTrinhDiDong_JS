@@ -26,15 +26,15 @@ export default function Screen1({ navigation }) {
       </Text>
       <Image
         source={require("./img/Home.png")}
-        style={{ width: 210, height: 70, alignSelf: "center", borderRadius: 8 }}
+        style={{ width: 280, height: 80, alignSelf: "center", borderRadius: 8 }}
       ></Image>
       <Image
         source={require("./img/Home1.png")}
-        style={{ width: 210, height: 70, alignSelf: "center", borderRadius: 8 }}
+        style={{ width: 280, height: 80, alignSelf: "center", borderRadius: 8 }}
       ></Image>
       <Image
         source={require("./img/Home.png")}
-        style={{ width: 210, height: 70, alignSelf: "center", borderRadius: 8 }}
+        style={{ width: 280, height: 80, alignSelf: "center", borderRadius: 8 }}
       ></Image>
       <TouchableOpacity
         style={{
@@ -45,6 +45,7 @@ export default function Screen1({ navigation }) {
           justifyContent: "center",
           borderRadius: 7,
         }}
+        onPress={() => navigation.navigate("Screen2")}
       >
         <View
           style={{
