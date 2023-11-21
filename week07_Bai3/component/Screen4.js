@@ -45,7 +45,10 @@ export default function Screen4({ navigation }) {
         setOrders(updateData);
       });
     alert("Pay Success!");
+    navigation.navigate("Shops Near Me", { newData });
+    console.log(newData);
   };
+
   return (
     <View style={styles.container}>
       <View

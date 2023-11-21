@@ -45,7 +45,7 @@ export default function Screen1({ navigation }) {
           justifyContent: "center",
           borderRadius: 7,
         }}
-        onPress={() => navigation.navigate("Screen2")}
+        onPress={() => navigation.navigate("Shops Near Me")}
       >
         <View
           style={{

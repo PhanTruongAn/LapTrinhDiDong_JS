@@ -14,8 +14,9 @@ import { useRoute } from "@react-navigation/native";
 export default function Screen3({ navigation }) {
   var route = useRoute();
   var [data, setData] = useState(route.params.item);
-  var [item, setItem] = useState(route.params.item.drinks);
-  console.log(item);
+  // var [item, setItem] = useState(route.params.item.drinks);
+  console.log(data);
+
   const orderDrinks = (item) => {
     const order = {
       name: item.name,
@@ -23,7 +24,7 @@ export default function Screen3({ navigation }) {
       img: item.img,
     };
     data.orders.push(order);
-    console.log(order);
+
     fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Bai3/${data.id}`, {
       method: "PUT",
       headers: {
@@ -36,6 +37,7 @@ export default function Screen3({ navigation }) {
         setData(updateOrders);
       });
   };
+
   return (
     <View
       style={{
@@ -56,7 +58,7 @@ export default function Screen3({ navigation }) {
         }}
       >
         <FlatList
-          data={item}
+          data={data.drinks}
           renderItem={({ item }) => (
             <View
               style={{
@@ -150,7 +152,7 @@ export default function Screen3({ navigation }) {
           borderRadius: 8,
         }}
         onPress={() =>
-          navigation.navigate("Screen4", {
+          navigation.navigate("Your Orders", {
             orders: data.orders,
             shop: data,
           })

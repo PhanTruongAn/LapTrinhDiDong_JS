@@ -12,8 +12,13 @@ import {
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
 export default function Screen2({ navigation }) {
-  var [data, setData] = useState();
   var route = useRoute();
+  var [data, setData] = useState(route.params?.newData);
+  useEffect(() => {
+    if (route.params?.newData) {
+      setData(route.params.newData);
+    }
+  }, [route.params?.newData]);
   useEffect(() => {
     fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Bai3`)
       .then((response) => response.json())
@@ -21,12 +26,7 @@ export default function Screen2({ navigation }) {
         data = json;
         setData(json);
       });
-  }, []);
-  useEffect(() => {
-    if (route.params?.updateData) {
-      setData(route.params.updateData);
-    }
-  }, [route.params?.updateData]);
+  }, [route.params]);
   return (
     <View
       style={{
@@ -40,7 +40,11 @@ export default function Screen2({ navigation }) {
         data={data}
         renderItem={({ item }) => (
           <TouchableOpacity
-            onPress={() => navigation.navigate("Screen3", { item })}
+            onPress={() =>
+              item.status === "Open"
+                ? navigation.navigate("Drinks", { item })
+                : alert("Shop closed!")
+            }
             style={{
               width: 370,
               height: 230,
@@ -74,7 +78,11 @@ export default function Screen2({ navigation }) {
                 }}
               >
                 <Image
-                  source={require("./img/Check.png")}
+                  source={
+                    item.status === "Open"
+                      ? require("./img/Check.png")
+                      : require("./img/Locked.png")
+                  }
                   style={{
                     width: 20,
                     height: 16,
@@ -87,10 +95,12 @@ export default function Screen2({ navigation }) {
                     fontSize: 16,
                     fontWeight: 500,
                     alignSelf: "center",
-                    color: "green",
+                    color: item.status === "Open" ? "green" : "red",
                   }}
                 >
-                  Accepting Orders
+                  {item.status === "Open"
+                    ? "Accepting Orders"
+                    : "Tempory Unvailable"}
                 </Text>
                 <Image
                   style={{ width: 20, height: 20, alignSelf: "center" }}
