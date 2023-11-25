@@ -9,34 +9,53 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import { addJobToData } from "../redux/dataSlice";
+import { updateJobs } from "../redux/jobSlice";
+import { updateUser } from "../redux/userSlice";
+import { updateData } from "../redux/dataSlice";
+import { getData } from "../redux/dataSlice";
 export default function Screen3({ navigation }) {
-  var [data, setData] = useState([]);
-  const [job, setJob] = useState("");
-  useEffect(() => {
-    setData(route.params.insertJob);
-  }, []);
-  var route = useRoute();
-  var handleInsertJob = () => {
-    if (job !== "") {
-      data.jobs.push(job);
-      fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users/${data.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((updatedUser) => {
-          setData(updatedUser);
-        });
-      navigation.navigate("Screen2");
-    } else {
-      alert("Please input 1 job!");
-    }
-  };
-
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.user.user);
   console.log(data);
+  const dataUpdate = useSelector((state) => state.data);
+  const [job, setJob] = useState("");
+
+  var route = useRoute();
+  // const handleInsertJob = () => {
+  //   fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users/${data.id}`, {
+  //     method: "PUT",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       name: data.name,
+  //       avatar: data.avatar,
+  //       email: data.email,
+  //       jobs: [...data.jobs, job],
+  //       id: data.id,
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((updatedData) => {
+  //       dispatch(updateUser(updatedData));
+  //       dispatch(getData());
+  //     });
+  // };
+  const handleInsertJob = () => {
+    const updatedData = {
+      name: data.name,
+      avatar: data.avatar,
+      email: data.email,
+      jobs: [...data.jobs, job],
+      id: data.id,
+    };
+    console.log(updatedData);
+    dispatch(updateData(updatedData));
+    dispatch(updateUser(updatedData));
+    // dispatch(getData());
+  };
   return (
     <View style={styles.container}>
       <View style={styles.viewAvatar}>

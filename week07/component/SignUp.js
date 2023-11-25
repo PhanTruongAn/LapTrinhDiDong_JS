@@ -9,8 +9,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { createData, getData } from "../redux/dataSlice";
 export default function SignUp({ navigation }) {
-  var [data, setData] = useState([]);
+  const dataReducer = useSelector((state) => state.data);
+  const { data } = dataReducer;
+  const dispatch = useDispatch();
+  console.log(data);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   var listAvatar = [
@@ -29,14 +34,6 @@ export default function SignUp({ navigation }) {
     const randomIndex = Math.floor(Math.random() * listAvatar.length);
     return listAvatar[randomIndex];
   };
-  useEffect(() => {
-    fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users`)
-      .then((response) => response.json())
-      .then((json) => {
-        data = json;
-        setData(json);
-      });
-  }, []);
   const handleSignUp = () => {
     if (name === "" || email === "") {
       alert("Vui lòng nhập đầy đủ thông tin !");
@@ -48,19 +45,9 @@ export default function SignUp({ navigation }) {
         jobs: [],
         id: data.length + 1,
       };
-      fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      })
-        .then((response) => response.json())
-        .then((updatedUser) => {
-          setData([...data, updatedUser]);
-          alert("Đăng ký thành công!");
-          navigation.navigate("Screen1", { newData: newUser });
-        });
+      dispatch(createData(newUser));
+      alert("Registeded success!");
+      navigation.navigate("Screen1");
     }
   };
   return (

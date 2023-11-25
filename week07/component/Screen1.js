@@ -10,30 +10,32 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import { getData } from "../redux/dataSlice";
+import { updateUser } from "../redux/userSlice";
+import { updateJobs } from "../redux/jobSlice";
 export default function Screen1({ navigation }) {
+  const dispatch = useDispatch();
+  const dataReducer = useSelector((state) => state.data.data);
+  console.log(dataReducer);
   var route = useRoute();
   var [data, setData] = useState([]);
   const [userName, setUserName] = useState("");
-
   useEffect(() => {
-    fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Users`)
-      .then((response) => response.json())
-      .then((json) => {
-        data = json;
-        setData(json);
-      });
-  }, []);
-  useEffect(() => {
-    if (route.params?.newData) {
-      setData([...data, route.params.newData]);
-    }
-  }, [route.params?.newData]);
-
+    dispatch(getData());
+  }, [dispatch]);
+  // useEffect(() => {
+  //   if (route.params?.newData) {
+  //     setData([...data, route.params.newData]);
+  //   }
+  // }, [route.params?.newData]);
   const handleLogin = () => {
     if (userName !== "") {
-      const user = data.find((user) => user.name === userName);
+      const user = dataReducer.find((user) => user.name === userName);
       if (user) {
-        navigation.navigate("Screen2", { userLogin: user });
+        dispatch(updateUser(user));
+        // dispatch(updateJobs(user.jobs));
+        navigation.navigate("Screen2");
       } else {
         alert("Your name is not exist!");
       }

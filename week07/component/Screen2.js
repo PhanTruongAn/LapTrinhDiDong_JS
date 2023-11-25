@@ -11,13 +11,12 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
-
+import { useDispatch, useSelector } from "react-redux";
 export default function Screen2({ navigation }) {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.user.user);
+  console.log(data);
   var route = useRoute();
-  var [data, setData] = useState([]);
-  useEffect(() => {
-    setData(route.params.userLogin);
-  }, []);
   var handleInsertJob = () => {
     if (data !== null) {
       navigation.navigate("Screen3", { insertJob: data });
