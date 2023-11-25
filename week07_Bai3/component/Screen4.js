@@ -11,16 +11,20 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { getData, updateData } from "../redux/dataSlice";
+import { shopInit } from "../redux/shopSlice";
 export default function Screen4({ navigation }) {
-  var route = useRoute();
-  var [shop, setShop] = useState(route.params.shop);
-  var [orders, setOrders] = useState(route.params);
+  const dispatch = useDispatch();
+  const shop = useSelector((state) => state.shop.shop);
+  const orders = shop.orders;
+  console.log(orders);
   const priceTotal = () => {
     let total = 0;
-    orders.orders.forEach((item) => {
+    orders.forEach((item) => {
       total += item.price;
     });
-    return total;
+    return total + 5;
   };
   const payOrders = () => {
     const newData = {
@@ -33,20 +37,10 @@ export default function Screen4({ navigation }) {
       orders: [],
       id: shop.id,
     };
-    fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Bai3/${shop.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newData),
-    })
-      .then((response) => response.json())
-      .then((updateData) => {
-        setOrders(updateData);
-      });
     alert("Pay Success!");
-    navigation.navigate("Shops Near Me", { newData });
-    console.log(newData);
+    dispatch(updateData(newData));
+    dispatch(shopInit(newData));
+    // dispatch(getData());
   };
 
   return (
@@ -144,7 +138,7 @@ export default function Screen4({ navigation }) {
               marginTop: 10,
             }}
           >
-            ${priceTotal()}
+            ${orders.length > 0 ? priceTotal() : ""}
           </Text>
         </View>
       </View>
@@ -160,7 +154,7 @@ export default function Screen4({ navigation }) {
         }}
       >
         <FlatList
-          data={orders.orders}
+          data={orders}
           renderItem={({ item }) => (
             <View
               style={{

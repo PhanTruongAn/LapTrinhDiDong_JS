@@ -11,22 +11,17 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { getData } from "../redux/dataSlice";
+import { shopInit } from "../redux/shopSlice";
 export default function Screen2({ navigation }) {
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.data.data);
+  console.log(data);
   var route = useRoute();
-  var [data, setData] = useState(route.params?.newData);
   useEffect(() => {
-    if (route.params?.newData) {
-      setData(route.params.newData);
-    }
-  }, [route.params?.newData]);
-  useEffect(() => {
-    fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Bai3`)
-      .then((response) => response.json())
-      .then((json) => {
-        data = json;
-        setData(json);
-      });
-  }, [route.params]);
+    dispatch(getData());
+  }, [dispatch]);
   return (
     <View
       style={{
@@ -42,7 +37,7 @@ export default function Screen2({ navigation }) {
           <TouchableOpacity
             onPress={() =>
               item.status === "Open"
-                ? navigation.navigate("Drinks", { item })
+                ? navigation.navigate("Drinks", dispatch(shopInit(item)))
                 : alert("Shop closed!")
             }
             style={{

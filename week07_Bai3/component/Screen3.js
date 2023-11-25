@@ -11,30 +11,42 @@ import {
 } from "react-native";
 import { useEffect, useState } from "react";
 import { useRoute } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { orderDrinks } from "../redux/dataSlice";
+import { shopInit } from "../redux/shopSlice";
+import { getData } from "../redux/dataSlice";
 export default function Screen3({ navigation }) {
   var route = useRoute();
-  var [data, setData] = useState(route.params.item);
-  // var [item, setItem] = useState(route.params.item.drinks);
+  const data = useSelector((state) => state.shop.shop);
   console.log(data);
-
+  const dispatch = useDispatch();
   const orderDrinks = (item) => {
     const order = {
       name: item.name,
       price: item.price,
       img: item.img,
     };
-    data.orders.push(order);
-
+    const newData = {
+      address: data.address,
+      delivery: data.delivery,
+      drinks: data.drinks,
+      id: data.id,
+      img: data.img,
+      name: data.name,
+      orders: [...data.orders, order],
+      status: data.status,
+    };
     fetch(`https://65420869f0b8287df1ff5d0a.mockapi.io/Bai3/${data.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(newData),
     })
       .then((response) => response.json())
-      .then((updateOrders) => {
-        setData(updateOrders);
+      .then((updateShop) => {
+        dispatch(shopInit(updateShop));
+        dispatch(getData());
       });
   };
 
